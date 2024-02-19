@@ -1,31 +1,35 @@
 {{ 'hero-collumn.scss' | asset_url | stylesheet_tag }}
 
 <div class="hero-column-section">
-  <p>{{ section.settings.custom_text_title }}</p>
-  <div class="container">
-    <div class="card">
-      <div class="content">
-        {% for block in section.blocks %}
-          <div class="image">
-            <img
-              class="heroImage"
-              src="{{ block.settings.image |  image_url: width: auto }}"
-              width="auto"
-              height="auto"
-            >
-          </div>
-          <div class="link">
-            {{ block.settings.custom_text_body }}
-          </div>
-        {% endfor %}
+  <div>
+    <h2 class="heading-label">{{ section.settings.custom_text_title }}</h2>
+  </div>
+  <div class="container-hero">
+    {% for block in section.blocks %}
+      <div class="content-column-border"></div>
+      <div class="content-column">
+        <div class="image-column">
+          <img
+            class="hero-image"
+            src="{{ block.settings.image |  image_url: width: auto }}"
+            width="auto"
+            height="200"
+          >
+        </div>
+        <div>
+          <h3 class="hero-text">{{ block.settings.custom_text_body }}</h3>
+        </div>
       </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
 
 {% style %}
-  .heroImage {
-    filter: drop-shadow(10px 7px 10px {{section.settings.colorSetting}});
+  .hero-column-section {
+    background: {{section.settings.colorSetting}};
+  }
+  .heading-label {
+    color: {{section.settings.colorTextSetting}};
   }
 {% endstyle %}
 
@@ -41,8 +45,13 @@
     },
     {
       "type": "color",
+      "id": "colorTextSetting",
+      "label": "Text Color"
+    },
+    {
+      "type": "color",
       "id": "colorSetting",
-      "label": "Color"
+      "label": "Background Color"
     }
   ],
   "blocks": [
@@ -53,7 +62,7 @@
       "settings": [
         {
           "id": "custom_text_body",
-          "type": "richtext",
+          "type": "text",
           "label": "Add custom text below",
           "default": "<p>Add your text here</p>"
         },
