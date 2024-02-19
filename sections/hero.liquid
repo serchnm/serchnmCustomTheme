@@ -1,0 +1,66 @@
+{{ 'hero.scss' | asset_url | stylesheet_tag }}
+
+<div class="custom-text-section">
+  <div class="leftContainer">
+    <div class="card">
+      <a class="card1" href="#">
+      <p>{{ section.settings.custom_text_title }}</p>
+      <p class="small"> {{ section.settings.custom_text_body }}</p>
+      <div class="go-corner" href="#">
+        <div class="go-arrow">
+          →
+        </div>
+      </div>
+      </a>
+    </div>
+    </div>
+  <div class="rightContainer">
+    <div class="image-bk">
+      <img class="heroImage" src="{{ section.settings.image |  image_url: width: 200 }}" width="200" height="auto" />
+    </div>
+  </div>
+</div>
+
+{% style  %}
+  .heroImage {
+    filter: drop-shadow(10px 7px 10px {{ section.settings.colorSetting }});
+
+  }
+
+{% endstyle %}
+
+{% schema %}
+  {
+    "name": "Text Box",
+    "settings": [
+      {
+        "id": "custom_text_title",
+        "type": "text",
+        "label": "Text box heading",
+        "default": "Title"
+      },
+      {
+        "id": "custom_text_body",
+        "type": "richtext",
+        "label": "Add custom text below",
+        "default": "<p>Add your text here</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "color",
+        "id": "colorSetting",
+        "label": "Color"
+      }
+    ],
+    "presets": [
+      {
+        "name": "custom-text",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
