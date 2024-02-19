@@ -1,0 +1,75 @@
+{{ 'hero-collumn.scss' | asset_url | stylesheet_tag }}
+
+<div class="hero-column-section">
+  <p>{{ section.settings.custom_text_title }}</p>
+  <div class="container">
+    <div class="card">
+      <div class="content">
+        {% for block in section.blocks %}
+          <div class="image">
+            <img
+              class="heroImage"
+              src="{{ block.settings.image |  image_url: width: auto }}"
+              width="auto"
+              height="auto"
+            >
+          </div>
+          <div class="link">
+            {{ block.settings.custom_text_body }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .heroImage {
+    filter: drop-shadow(10px 7px 10px {{section.settings.colorSetting}});
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Hero Column",
+  "settings": [
+    {
+      "id": "custom_text_title",
+      "type": "text",
+      "label": "Text box heading",
+      "default": "Title"
+    },
+    {
+      "type": "color",
+      "id": "colorSetting",
+      "label": "Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "limit": 3,
+      "settings": [
+        {
+          "id": "custom_text_body",
+          "type": "richtext",
+          "label": "Add custom text below",
+          "default": "<p>Add your text here</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "hero-column",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
